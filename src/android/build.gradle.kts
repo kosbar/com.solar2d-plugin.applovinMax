@@ -16,6 +16,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven ( url = "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea" )
         // maven(url = "https:// some custom repo")
         val nativeDir = if (System.getProperty("os.name").lowercase().contains("windows")) {
             System.getenv("CORONA_ROOT")

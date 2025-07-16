@@ -17,7 +17,7 @@ val coronaResourcesDir: String? by project
 val coronaDstDir: String? by project
 val coronaTmpDir: String? by project
 val coronaAppFileName: String? by project
-val coronaAppPackage = project.findProperty("coronaAppPackage") as? String ?: "com.mycompany.app"
+val coronaAppPackage = project.findProperty("coronaAppPackage") as? String ?: "com.gm_shaber.dayr"
 val coronaKeystore: String? by project
 val coronaKeystorePassword: String? by project
 val coronaKeyAlias: String? by project
@@ -195,7 +195,7 @@ android {
     lintOptions {
         isCheckReleaseBuilds = true
     }
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = coronaAppPackage
         targetSdk = 34
@@ -279,11 +279,13 @@ val apkFilesSet = mutableSetOf<String>()
 file("$buildDirectory/intermediates/corona_manifest_gen/CopyToApk.txt").takeIf { it.exists() }?.readLines()?.forEach {
     apkFilesSet.add(it.trim())
 }
+
 if (!isSimulatorBuild) {
     parsedBuildProperties.lookup<JsonArray<String>>("buildSettings.android.apkFiles").firstOrNull()?.forEach {
         apkFilesSet.add(it.trim())
     }
 }
+
 if (apkFilesSet.isNotEmpty()) {
     val generatedApkFiles = "$buildDirectory/generated/apkFiles"
     val coronaCopyApkFiles = tasks.create<Copy>("coronaCopyApkFiles") {
@@ -842,7 +844,7 @@ tasks.register<Copy>("exportToNativeAppTemplate") {
     from(rootDir) {
         include("app/build.gradle.kts")
         filter {
-            it.replace("com.mycompany.app", "com.mycompany.app")
+            it.replace("com.mycompany.app", "com.gm_shaber.dayr")
         }
     }
 
