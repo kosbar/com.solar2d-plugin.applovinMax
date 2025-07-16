@@ -487,7 +487,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                     .setMediationProvider( AppLovinMediationProvider.MAX )
                     .build();
 
-
+Log.e("OHUET!", "INIT HAPPENED HERE");
             AppLovinSdk.getInstance( coronaContext ).initialize( initConfig, new AppLovinSdk.SdkInitializationListener()
             {
                 @Override
@@ -497,6 +497,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                     Map<String, Object> coronaEvent = new HashMap<>();
                     coronaEvent.put(EVENT_PHASE_KEY, PHASE_INIT);
                     dispatchLuaEvent(coronaEvent);
+                    Log.e("OHUET!", "INITED");
                 }
             } );
 
