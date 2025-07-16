@@ -376,6 +376,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                         new SetIsAgeRestrictedUser(),
                         new showDebugger(),
                         new SetCreativeDebuggerEnabled(),
+                        new ShowCmpForExistingUser(),
                 };
         String libName = L.toString(1);
         L.register(libName, luaFunctions);
@@ -487,7 +488,6 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                     .setMediationProvider( AppLovinMediationProvider.MAX )
                     .build();
 
-Log.e("OHUET!", "INIT HAPPENED HERE");
             AppLovinSdk.getInstance( coronaContext ).initialize( initConfig, new AppLovinSdk.SdkInitializationListener()
             {
                 @Override
@@ -1308,6 +1308,34 @@ Log.e("OHUET!", "INIT HAPPENED HERE");
                 return 0;
             }
             AppLovinSdk.getInstance(CoronaEnvironment.getApplicationContext()).getSettings().setCreativeDebuggerEnabled( creativeDebugger );
+            return 0;
+        }
+    }
+
+    private class ShowCmpForExistingUser implements NamedJavaFunction {
+        @Override
+        public String getName() {
+            return "showCmpForExistingUser";
+        }
+
+        @Override
+        public int invoke(LuaState luaState) {
+            functionSignature = "applovinMax.showCmpForExistingUser(bool)";
+
+            final CoronaActivity coronaActivity = CoronaEnvironment.getCoronaActivity();
+
+            AppLovinCmpService cmpService = AppLovinSdk.getInstance(CoronaEnvironment.getApplicationContext()).getCmpService();
+
+            cmpService.showCmpForExistingUser(coronaActivity, new AppLovinCmpService.OnCompletedListener() {
+                @Override
+                public void onCompleted(AppLovinCmpError appLovinCmpError) {
+                    if (appLovinCmpError == null) {
+                        Map<String, Object> coronaEvent = new HashMap<>();
+                        coronaEvent.put(CoronaLuaEvent.ISERROR_KEY, true);
+                        dispatchLuaEvent(coronaEvent);
+                    }
+                }
+            });
             return 0;
         }
     }

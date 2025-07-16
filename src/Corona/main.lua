@@ -85,9 +85,10 @@ local function applovinListener( event )
   end
 end
 
-
+local applovinSDK = "Hg2h7Q2-iGZizQqm5TT_6Jsc-6BC6ymx6VE-a2KTGR8noyZDea8ftmkzyTed7ckse6rOAZlIu_oQam7Aba7Tq6"
 
 applovin.init(applovinListener, {
+  sdkKey = applovinSDK,
   verboseLogging = true,
   testMode = true
 })
@@ -120,7 +121,7 @@ interstitialButton = widget.newButton{
       applovin.show("interstitial")
     else
       interstitialButton:setLabel("Loading interstitial...")
-      applovin.load("interstitial", {iOSUnitId = "replace with your own", androidUnitId="replace with your own"})
+      applovin.load("interstitial", {iOSUnitId = "9f5131cf7f407c23", androidUnitId="29d097ae940d6055"})
     end
   end,
 }
@@ -137,7 +138,7 @@ rewardedVideoButton = widget.newButton {
       applovin.show("rewardedVideo")
     else
       rewardedVideoButton:setLabel("Loading rewardedVideo...")
-      applovin.load("rewardedVideo", {iOSUnitId="replace with your own", androidUnitId="replace with your own"})
+      applovin.load("rewardedVideo", {iOSUnitId="775a498707ef2275", androidUnitId="da5529f386dd83cf"})
     end
   end,
 }
